@@ -1,0 +1,16 @@
+# Core libraries
+tensorflow>=2.15.0
+transformers==4.31.0
+datasets==2.18.0
+evaluate==0.4.0
+
+# Utility and preprocessing
+pandas
+numpy
+scikit-learn
+
+# Streamlit for deployment
+streamlit==1.45.0
+
+# Optional: If using Colab or Jupyter
+ipykernel
