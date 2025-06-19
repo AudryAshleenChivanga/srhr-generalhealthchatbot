@@ -65,11 +65,26 @@ This dataset provides curated QA pairs from trusted medical sources like NIH and
    - Built an interactive frontend using **Streamlit**, allowing real-time question-answer interaction
    - Hosted locally (and compatible with cloud platforms such as Hugging Face Spaces or Streamlit Sharing)
 
+
+
 3. **Usage Instructions:**
    - Clone the repository
    - Load the fine-tuned model and tokenizer
    - Run the app via `streamlit run app.py` to start the chatbot interface
 
+ 
+## Repository Structure
+
+```
+srhr-generalhealthchatbot/
+│
+├── app.py                  # Streamlit app source code
+├── requirements.txt        # Python dependencies
+├── README.md               # Project documentation
+├── data/                   # Datasets and resources
+├── notebook/               # Jupyter notebooks and experiments
+└── gitignore               # Contains ignored variables and large files like my model 
+```
 ---
 
 ## Impact
