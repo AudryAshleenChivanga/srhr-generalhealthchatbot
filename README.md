@@ -5,7 +5,11 @@ In this project, I developed a domain-specific chatbot focused on **Sexual and R
 ---
 ### Interface
 
-[![Watch the video](./images/ashlebot.jpg)](https://youtu.be/gGY2CUTfuis)
+<p align="center">
+  <a href="https://youtu.be/gGY2CUTfuis">
+    <img src="./images/ashlebot.jpg" alt="AshleMedBot Demo" width="500">
+  </a>
+</p>
 
 ## Datasets Used
 
