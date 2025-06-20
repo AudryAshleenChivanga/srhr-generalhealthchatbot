@@ -3,7 +3,7 @@
 In this project, I developed a domain-specific chatbot focused on **Sexual and Reproductive Health and Rights (SRHR)** and **general medical topics** using a fine-tuned version of **DistilGPT-2**. The chatbot is designed to provide informative, contextually relevant, and user-friendly responses to health-related questions, addressing the knowledge gap often found in mainstream medical datasets—especially around SRHR topics.
 
 ---
-### Interface
+### Click Image to view Chatbot's Full Interface
 
 <p align="center">
   <a href="https://youtu.be/gGY2CUTfuis">
