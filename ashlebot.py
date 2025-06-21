@@ -1,5 +1,6 @@
 import streamlit as st
-from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+from transformers import GPT2Tokenizer
+from transformers.models.gpt2.modeling_tf_gpt2 import TFGPT2LMHeadModel
 import tensorflow as tf
 from itertools import groupby
 import re
