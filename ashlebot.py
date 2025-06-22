@@ -7,7 +7,7 @@ import re
 from PIL import Image
 import os
 
-# --- Hugging Face repo (files in root) ---
+# --- Hugging Face repo (files should now be in root) ---
 HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"
 
 # --- Load tokenizer and TensorFlow model directly from Hugging Face ---
@@ -18,12 +18,12 @@ try:
     )
     model = TFGPT2LMHeadModel.from_pretrained(
         HF_REPO,
-        from_pt=True  # Set to False if model was trained and uploaded in TensorFlow
+        from_pt=False  # <-- set to False since you have a TensorFlow model (tf_model.h5)
     )
     model.trainable = False
     tokenizer.pad_token = tokenizer.eos_token
 except Exception as e:
-    st.error(f"Failed to load model/tokenizer: {e}")
+    st.error(f" Failed to load model/tokenizer: {e}")
 
 # --- Utility functions ---
 def remove_repeated_sentences(text):
