@@ -7,21 +7,18 @@ import re
 from PIL import Image
 import os
 
-# --- Hugging Face repo and subfolder ---
+# --- Hugging Face repo (files in root) ---
 HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"
-HF_SUBFOLDER = "distilgpt2_srhr_generalhealth_v1"
 
 # --- Load tokenizer and TensorFlow model directly from Hugging Face ---
 try:
     tokenizer = GPT2Tokenizer.from_pretrained(
         HF_REPO,
-        subfolder=HF_SUBFOLDER,
         use_fast=False
     )
     model = TFGPT2LMHeadModel.from_pretrained(
         HF_REPO,
-        subfolder=HF_SUBFOLDER,
-        from_pt=True  # Assuming your model was saved from PyTorch checkpoint
+        from_pt=True  # Set to False if model was trained and uploaded in TensorFlow
     )
     model.trainable = False
     tokenizer.pad_token = tokenizer.eos_token
