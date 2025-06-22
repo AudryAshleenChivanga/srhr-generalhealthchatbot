@@ -1,32 +1,29 @@
 import streamlit as st
-from transformers import GPT2Tokenizer
-from transformers.models.gpt2.modeling_tf_gpt2 import TFGPT2LMHeadModel
+from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
 import tensorflow as tf
 from itertools import groupby
 import re
 from PIL import Image
 import os
-import zipfile
-import requests
-import io
 
-# --- Download model zip from Google Drive if not present ---
-MODEL_DIR = "distilgpt2_srhr_generalhealth_v1"
-ZIP_URL = "https://drive.google.com/uc?export=download&id=18v7Aks3emm3wsu1q6klgXzXIz4lZ-rs-"
+# --- Model path locally or Hugging Face repo name ---
+LOCAL_MODEL_DIR = "distilgpt2_srhr_generalhealth_v1"
+HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"  # replace with your actual repo
 
-if not os.path.exists(MODEL_DIR):
-    st.info("Downloading model from Google Drive...")
-    response = requests.get(ZIP_URL)
-    if response.status_code == 200:
-        z = zipfile.ZipFile(io.BytesIO(response.content))
-        z.extractall(MODEL_DIR)
-        st.success("Model downloaded and extracted successfully.")
+# --- Load tokenizer and model ---
+try:
+    if os.path.exists(LOCAL_MODEL_DIR):
+        tokenizer = GPT2Tokenizer.from_pretrained(LOCAL_MODEL_DIR, use_fast=False)
+        model = TFGPT2LMHeadModel.from_pretrained(LOCAL_MODEL_DIR, from_pt=False)
+        st.info(f"Loaded model from local directory: {LOCAL_MODEL_DIR}")
     else:
-        st.error("Failed to download model. Please check the link.")
+        tokenizer = GPT2Tokenizer.from_pretrained(HF_REPO, use_fast=False)
+        model = TFGPT2LMHeadModel.from_pretrained(HF_REPO, from_pt=False)
+        st.info(f"Loaded model from Hugging Face repo: {HF_REPO}")
+except Exception as e:
+    st.error(f"Failed to load model/tokenizer: {e}")
+    st.stop()
 
-# --- Load tokenizer and TensorFlow model ---
-tokenizer = GPT2Tokenizer.from_pretrained(MODEL_DIR, use_fast=False)
-model = TFGPT2LMHeadModel.from_pretrained(MODEL_DIR, from_pt=False)
 model.trainable = False
 tokenizer.pad_token = tokenizer.eos_token
 
