@@ -8,7 +8,7 @@ from PIL import Image
 import os
 
 # --- Hugging Face repo and subfolder ---
-HF_REPO = "Audry123/distilgpt2-srhr-generalhealth/distilgpt2_srhr_generalhealth_v1"
+HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"
 HF_SUBFOLDER = "distilgpt2_srhr_generalhealth_v1"
 
 # --- Load tokenizer and TensorFlow model directly from Hugging Face ---
