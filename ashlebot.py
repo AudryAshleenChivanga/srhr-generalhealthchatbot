@@ -1,31 +1,32 @@
 import streamlit as st
-from transformers import GPT2Tokenizer, TFGPT2LMHeadModel
+from transformers import GPT2Tokenizer
+from transformers.models.gpt2.modeling_tf_gpt2 import TFGPT2LMHeadModel
 import tensorflow as tf
 from itertools import groupby
 import re
 from PIL import Image
 import os
 
-# --- Model path locally or Hugging Face repo name ---
-LOCAL_MODEL_DIR = "distilgpt2_srhr_generalhealth_v1"
-HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"  # replace with your actual repo
+# --- Hugging Face repo and subfolder ---
+HF_REPO = "Audry123/distilgpt2-srhr-generalhealth"
+HF_SUBFOLDER = "distilgpt2_srhr_generalhealth_v1"
 
-# --- Load tokenizer and model ---
+# --- Load tokenizer and TensorFlow model directly from Hugging Face ---
 try:
-    if os.path.exists(LOCAL_MODEL_DIR):
-        tokenizer = GPT2Tokenizer.from_pretrained(LOCAL_MODEL_DIR, use_fast=False)
-        model = TFGPT2LMHeadModel.from_pretrained(LOCAL_MODEL_DIR, from_pt=False)
-        st.info(f"Loaded model from local directory: {LOCAL_MODEL_DIR}")
-    else:
-        tokenizer = GPT2Tokenizer.from_pretrained(HF_REPO, use_fast=False)
-        model = TFGPT2LMHeadModel.from_pretrained(HF_REPO, from_pt=False)
-        st.info(f"Loaded model from Hugging Face repo: {HF_REPO}")
+    tokenizer = GPT2Tokenizer.from_pretrained(
+        HF_REPO,
+        subfolder=HF_SUBFOLDER,
+        use_fast=False
+    )
+    model = TFGPT2LMHeadModel.from_pretrained(
+        HF_REPO,
+        subfolder=HF_SUBFOLDER,
+        from_pt=True  # Assuming your model was saved from PyTorch checkpoint
+    )
+    model.trainable = False
+    tokenizer.pad_token = tokenizer.eos_token
 except Exception as e:
     st.error(f"Failed to load model/tokenizer: {e}")
-    st.stop()
-
-model.trainable = False
-tokenizer.pad_token = tokenizer.eos_token
 
 # --- Utility functions ---
 def remove_repeated_sentences(text):
